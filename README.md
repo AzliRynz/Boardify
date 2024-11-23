@@ -33,14 +33,13 @@ The `config.yml` file allows you to modify the appearance and content of the sco
 ```yaml
 title: "Boardify"
 lines:
-  - "{player}"
-  - "{online} players online"
+  - "Name: {player}"
+  - "Online: {online}"
   - "Ping: {ping}"
   - "Health: {health}/{max_health}"
   - "Pos: {x}, {y}, {z}"
-  - "Playtime: {playtime} minutes"
 ```
-Placeholder Details:
+**Placeholder Details:**
 
 * {player} - Player's username
 
