@@ -4,12 +4,22 @@ namespace KnosTx\Boardify\commands;
 
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\plugin\Plugin;
+use pocketmine\plugin\PluginOwned;
+use pocketmine\plugin\PluginOwnedTrait;
 use KnosTx\Boardify\Main;
 
-class BoardifyCommand extends Command {
-    public function __construct(private Main $plugin) {
-        parent::__construct("boardify", "Manage Boardify plugin", "/boardify <reload>");
-    }
+class BoardifyCommand extends Command implements PluginOwned{
+    use PluginOwnedTrait;
+    public function __construct(Main $plugin){
+		parent::__construct("boardify");
+		$this->setDescription("Boardify Commands");
+		$this->setUsage("/boardify <reload>");
+		$this->setAliases(["board"]);
+		$this->setPermission("boardify.command");
+
+		$this->owningPlugin = $plugin;
+	}
 
     public function execute(CommandSender $sender, string $commandLabel, array $args): bool {
         if (!$sender->hasPermission("boardify.command")) {
