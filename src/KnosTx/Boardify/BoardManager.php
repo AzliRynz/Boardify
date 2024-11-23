@@ -9,6 +9,7 @@ use pocketmine\network\mcpe\protocol\types\ScorePacketEntry;
 
 class BoardManager {
     private array $boards = [];
+    private array $loginTimes = [];
 
     public function __construct(private Main $plugin) {}
 
@@ -43,6 +44,7 @@ class BoardManager {
         $player->getNetworkSession()->sendDataPacket($scorePacket);
 
         $this->boards[$player->getName()] = true;
+        $this->loginTimes[$player->getName()] = time();
     }
 
     public function removeBoard(Player $player): void {
@@ -56,6 +58,7 @@ class BoardManager {
         $objectivePacket->sortOrder = 0;
 
         $player->getNetworkSession()->sendDataPacket($objectivePacket);
+        unset($this->loginTimes[$player->getName()]);
     }
 
     public function updateBoards(): void {
@@ -67,6 +70,11 @@ class BoardManager {
     }
 
     private function parsePlaceholders(Player $player, string $line): string {
+        $playtime = 0;
+        if (isset($this->loginTimes[$player->getName()])) {
+            $playtime = (int)((time() - $this->loginTimes[$player->getName()]) / 60);
+        }
+
         return str_replace(
             [
                 "{player}",
@@ -90,7 +98,7 @@ class BoardManager {
                 round($player->getPosition()->getZ(), 1),
                 round($player->getHealth(), 1),
                 $player->getMaxHealth(),
-                (int)($player->getTicksLived() / 20 / 60)
+                $playtime
             ],
             $line
         );
