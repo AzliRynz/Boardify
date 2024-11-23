@@ -1,0 +1,13 @@
+name: Boardify
+main: KnosTx\Boardify\Main
+version: 1.0.0-alpha
+api: 5.0.0
+commands:
+  boardify:
+    description: Manage Boardify plugin settings.
+    usage: /boardify <reload>
+    permission: boardify.command
+permissions:
+  boardify.command:
+    description: Permission to use Boardify commands.
+    default: op
