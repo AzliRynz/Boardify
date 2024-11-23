@@ -30,14 +30,15 @@ Boardify is a lightweight plugin for PocketMine-MP that allows you to easily cre
 
 The `config.yml` file allows you to modify the appearance and content of the scoreboard. Below is a sample configuration:
 
-```yaml
-title: "Boardify"
-lines:
-  - "Name: {player}"
-  - "Online: {online}"
-  - "Ping: {ping}"
-  - "Health: {health}/{max_health}"
-  - "Pos: {x}, {y}, {z}"
+```yamldefault-board:
+  title: "§aBoardify"
+  lines:
+    - "§7Name: §e{player}"
+    - "§7Online: §e{online}"
+    - "§7Ping: §e{ping}ms"
+    - "§7World: §e{world}"
+    - "§7Pos: §eX: {x} Y: {y} Z: {z}"
+    - "§7Health: §e{health}/{max_health}"
 ```
 **Placeholder Details:**
 
