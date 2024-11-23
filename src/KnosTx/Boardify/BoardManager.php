@@ -31,19 +31,18 @@ class BoardManager implements Listener {
         $objectivePacket->displayName = $config["title"] ?? "Boardify";
         $objectivePacket->criteriaName = "dummy";
         $objectivePacket->sortOrder = 0;
-
         $player->getNetworkSession()->sendDataPacket($objectivePacket);
 
         $lines = $config["lines"] ?? [];
         $entries = [];
+        $lineCount = count($lines);
         foreach ($lines as $score => $line) {
             $entry = new ScorePacketEntry();
             $entry->objectiveName = "Boardify";
             $entry->type = ScorePacketEntry::TYPE_FAKE_PLAYER;
             $entry->customName = $this->parsePlaceholders($player, $line);
-            $entry->score = count($lines) - $score;
+            $entry->score = $lineCount - $score;
             $entry->scoreboardId = $score;
-
             $entries[] = $entry;
         }
 
@@ -64,7 +63,6 @@ class BoardManager implements Listener {
         $objectivePacket->displayName = "";
         $objectivePacket->criteriaName = "dummy";
         $objectivePacket->sortOrder = 0;
-
         $player->getNetworkSession()->sendDataPacket($objectivePacket);
         unset($this->loginTimes[$player->getName()]);
     }
