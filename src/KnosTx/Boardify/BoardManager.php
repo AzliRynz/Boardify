@@ -70,7 +70,7 @@ class BoardManager {
         }
     }
 
-    private function parsePlaceholders(Player $player, NetworkSession $network, string $line): string {
+    private function parsePlaceholders(Player $player, string $line): string {
         return str_replace(
             [
                 "{player}",
