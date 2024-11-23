@@ -1,0 +1,11 @@
+default-board:
+  title: "§aBoardify"
+  lines:
+    - "§7Name: §e{player}"
+    - "§7Online: §e{online}"
+    - "§7Ping: §e{ping}ms"
+    - "§7Current World: §e{world}"
+    - "§7Coordinates: §eX: {x} Y: {y} Z: {z}"
+    - "§7Health: §e{health}/{max_health}"
+    - "§7Playtime: §e{playtime} minutes"
+update-interval: 20
