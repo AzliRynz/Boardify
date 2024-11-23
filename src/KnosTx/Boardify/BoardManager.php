@@ -3,18 +3,14 @@
 namespace KnosTx\Boardify;
 
 use pocketmine\player\Player;
-use pocketmine\network\mcpe\NetworkSession;
 use pocketmine\network\mcpe\protocol\SetDisplayObjectivePacket;
 use pocketmine\network\mcpe\protocol\SetScorePacket;
 use pocketmine\network\mcpe\protocol\types\ScorePacketEntry;
 
 class BoardManager {
     private array $boards = [];
-    private NetworkSession $network;
 
-    public function __construct(private Main $plugin) {
-        $this->network = $network;
-    }
+    public function __construct(private Main $plugin) {}
 
     public function createBoard(Player $player): void {
         $config = $this->plugin->getConfigManager()->getDefaultBoard();
@@ -87,7 +83,7 @@ class BoardManager {
             [
                 $player->getName(),
                 count($player->getServer()->getOnlinePlayers()),
-                $network->getPing(),
+                $player->getNetworkSession()->getPing(),
                 $player->getWorld()->getDisplayName(),
                 round($player->getPosition()->getX(), 1),
                 round($player->getPosition()->getY(), 1),
