@@ -6,12 +6,21 @@ use pocketmine\player\Player;
 use pocketmine\network\mcpe\protocol\SetDisplayObjectivePacket;
 use pocketmine\network\mcpe\protocol\SetScorePacket;
 use pocketmine\network\mcpe\protocol\types\ScorePacketEntry;
+use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\event\Listener;
 
-class BoardManager {
+class BoardManager implements Listener {
     private array $boards = [];
     private array $loginTimes = [];
 
-    public function __construct(private Main $plugin) {}
+    public function __construct(private Main $plugin) {
+        $this->plugin->getServer()->getPluginManager()->registerEvents($this, $this->plugin);
+    }
+
+    public function onPlayerJoin(PlayerJoinEvent $event): void {
+        $player = $event->getPlayer();
+        $this->createBoard($player);
+    }
 
     public function createBoard(Player $player): void {
         $config = $this->plugin->getConfigManager()->getDefaultBoard();
@@ -49,7 +58,6 @@ class BoardManager {
 
     public function removeBoard(Player $player): void {
         unset($this->boards[$player->getName()]);
-
         $objectivePacket = new SetDisplayObjectivePacket();
         $objectivePacket->displaySlot = "sidebar";
         $objectivePacket->objectiveName = "Boardify";
