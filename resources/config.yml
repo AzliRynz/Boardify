@@ -1,7 +1,9 @@
-title: "Boardify"
-lines:
-  - "Name: {player}"
-  - "Online: {online}"
-  - "Ping: {ping}"
-  - "Health: {health}/{max_health}"
-  - "Pos: {x}, {y}, {z}"
+default-board:
+  title: "§aBoardify"
+  lines:
+    - "§7Name: §e{player}"
+    - "§7Online: §e{online}"
+    - "§7Ping: §e{ping}ms"
+    - "§7World: §e{world}"
+    - "§7Pos: §eX: {x} Y: {y} Z: {z}"
+    - "§7Health: §e{health}/{max_health}"
