@@ -10,10 +10,13 @@ use pocketmine\network\mcpe\protocol\types\ScorePacketEntry;
 
 class BoardManager {
     private array $boards = [];
+    private NetworkSession $network;
 
-    public function __construct(private Main $plugin) {}
+    public function __construct(private Main $plugin) {
+        $this->network = $network;
+    }
 
-    public function createBoard(Player $player, NetworkSession $network): void {
+    public function createBoard(Player $player): void {
         $config = $this->plugin->getConfigManager()->getDefaultBoard();
 
         $objectivePacket = new SetDisplayObjectivePacket();
@@ -67,7 +70,7 @@ class BoardManager {
         }
     }
 
-    private function parsePlaceholders(Player $player, string $line): string {
+    private function parsePlaceholders(Player $player, NetworkSession $network, string $line): string {
         return str_replace(
             [
                 "{player}",
