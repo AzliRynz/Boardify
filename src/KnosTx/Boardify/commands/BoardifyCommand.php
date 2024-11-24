@@ -32,6 +32,8 @@ class BoardifyCommand extends Command implements PluginOwned
 {
 	use PluginOwnedTrait;
 
+private Main $plugin;
+
 	/**
 	 * Boardify Command Construction
 	 */
@@ -47,7 +49,7 @@ class BoardifyCommand extends Command implements PluginOwned
 	}
 
 	/**
-	 * @return bool|mixed
+	 * @return mixed
 	 */
 	public function execute(CommandSender $sender, string $commandLabel, array $args) : bool
 	{
