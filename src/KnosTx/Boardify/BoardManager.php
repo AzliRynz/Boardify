@@ -10,7 +10,14 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\Listener;
 
 class BoardManager implements Listener {
+    /**
+     * @var array<string, bool>
+     */
     private array $boards = [];
+
+    /**
+     * @var array<string, int>
+     */
     private array $loginTimes = [];
 
     public function __construct(private Main $plugin) {
