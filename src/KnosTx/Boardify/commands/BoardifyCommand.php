@@ -10,14 +10,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of Boardify.
- *
- * @license MIT
- * @author KnosTx <nurazligaming@gmain.com>
- * @link https://github.com/KnosTx
- */
-
 namespace KnosTx\Boardify\commands;
 
 use KnosTx\Boardify\Main;
