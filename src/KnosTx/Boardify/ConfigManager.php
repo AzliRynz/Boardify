@@ -34,6 +34,14 @@ class ConfigManager
 		$this->config = new Config($this->plugin->getDataFolder() . 'config.yml', Config::YAML);
 	}
 
+	/**
+	 * @return array<string, mixed>
+	 */
+	public function getDefaultBoard() : array
+	{
+		return $this->config->get('default-board', []);
+	}
+
 	public function getUpdateInterval() : float
 	{
 		return (float) $this->config->get('update-interval', 0.7);
