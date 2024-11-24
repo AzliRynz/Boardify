@@ -1,79 +1,114 @@
 <?php
 
-/**
- * PHP-CS-Fixer configuration file.
- *
- * @license MIT
- * @author KnosTx <nurazligaming@gmail.com>
- * @link https://github.com/KnosTx
- */
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__ . '/src')
 
-use PhpCsFixer\Config;
-use PhpCsFixer\Finder;
-
-$finder = Finder::create()
-    ->in(__DIR__) // Specify the directory to search for PHP files.
-    ->name('*.php') // Only consider PHP files.
-    ->ignoreDotFiles(true)
-    ->ignoreVCS(true);
-
-return (new Config())
-    ->setFinder($finder)
-    ->setRiskyAllowed(true) // Allow risky rules if necessary.
+return (new PhpCsFixer\Config)
+    ->setRiskyAllowed(true)
     ->setRules([
-        '@PSR6' => true, // Apply PSR-6 standards.
-        'array_syntax' => ['syntax' => 'short'], // Use short array syntax.
+        'align_multiline_comment' => [
+            'comment_type' => 'phpdocs_only'
+        ],
+        'array_indentation' => true,
+        'array_syntax' => [
+            'syntax' => 'short'
+        ],
         'binary_operator_spaces' => [
-            'default' => 'single_space',
-            'operators' => ['=>' => null],
+            'default' => 'single_space'
         ],
         'blank_line_after_namespace' => true,
         'blank_line_after_opening_tag' => true,
         'blank_line_before_statement' => [
-            'statements' => ['return', 'throw', 'try'],
+            'statements' => [
+                'declare'
+            ]
         ],
-        'cast_spaces' => ['space' => 'single'],
-        'class_attributes_separation' => [
-            'elements' => [
-                'const' => 'one',
-                'method' => 'one',
-                'property' => 'one',
-            ],
+        'cast_spaces' => [
+            'space' => 'single'
         ],
-        'concat_space' => ['spacing' => 'one'],
-        'declare_strict_types' => true, // Add `declare(strict_types=1)` if missing.
-        'header_comment' => [ // Add a license header to each file.
-            'header' => <<<EOT
-This file is part of Boardify.
+        'concat_space' => [
+            'spacing' => 'one'
+        ],
+        'declare_strict_types' => true,
+        'elseif' => true,
+        'fully_qualified_strict_types' => true,
+        'global_namespace_import' => [
+            'import_constants' => true,
+            'import_functions' => true,
+            'import_classes' => null,
+        ],
+        'header_comment' => [
+            'comment_type' => 'comment',
+            'header' => <<<BODY
 
+  ____                      _ _  __       
+ |  _ \                    | (_)/ _|      
+ | |_) | ___   __ _ _ __ __| |_| |_ _   _ 
+ |  _ < / _ \ / _` | '__/ _` | |  _| | | |
+ | |_) | (_) | (_| | | | (_| | | | | |_| |
+ |____/ \___/ \__,_|_|  \__,_|_|_|  \__, |
+                                     __/ |
+                                    |___/ 
 @license MIT
-@author KnosTx <nurazligaming@gmail.com>
-@link https://github.com/KnosTx
-EOT,
-            'location' => 'after_open', // Place the header after `declare(strict_types=1)`.
-            'comment_type' => 'comment', // Use standard block comment.
+@author KnosTx
+@link https://github.com/KnosTx/Boardify
+
+
+BODY,
+            'location' => 'after_open'
         ],
-        'line_ending' => true, // Ensure consistent line endings.
-        'lowercase_keywords' => true,
-        'lowercase_static_reference' => true,
-        'method_argument_space' => [
-            'on_multiline' => 'ensure_fully_multiline',
+        'indentation_type' => true,
+        'logical_operators' => true,
+        'native_constant_invocation' => [
+            'scope' => 'namespaced'
         ],
-        'new_with_braces' => true,
+        'native_function_invocation' => [
+            'scope' => 'namespaced',
+            'include' => ['@all'],
+        ],
+        'new_with_braces' => [
+            'named_class' => true,
+            'anonymous_class' => false,
+        ],
+        'no_closing_tag' => true,
+        'no_empty_phpdoc' => true,
+        'no_extra_blank_lines' => true,
+        'no_superfluous_phpdoc_tags' => [
+            'allow_mixed' => true,
+        ],
         'no_trailing_whitespace' => true,
+        'no_trailing_whitespace_in_comment' => true,
+        'no_whitespace_in_blank_line' => true,
         'no_unused_imports' => true,
         'ordered_imports' => [
-            'sort_algorithm' => 'alpha', // Alphabetical order for imports.
+            'imports_order' => [
+                'class',
+                'function',
+                'const',
+            ],
+            'sort_algorithm' => 'alpha'
         ],
-        'phpdoc_align' => ['align' => 'left'],
-        'phpdoc_order' => true,
-        'phpdoc_scalar' => true,
-        'phpdoc_separation' => true,
+        'phpdoc_align' => [
+            'align' => 'vertical',
+            'tags' => [
+                'param',
+            ]
+        ],
+        'phpdoc_line_span' => [
+            'property' => 'single',
+            'method' => null,
+            'const' => null
+        ],
         'phpdoc_trim' => true,
+        'phpdoc_trim_consecutive_blank_line_separation' => true,
+        'return_type_declaration' => [
+            'space_before' => 'one'
+        ],
         'single_blank_line_at_eof' => true,
-        'single_quote' => true, // Use single quotes where possible.
-        'strict_comparison' => true, // Use strict comparisons.
-        'strict_param' => true, // Enforce strict parameter rules.
-        'trailing_comma_in_multiline' => ['elements' => ['arrays']],
-        'yoda_style' => false,
-    ]);
+        'single_import_per_statement' => true,
+        'strict_param' => true,
+        'unary_operator_spaces' => true,
+    ])
+    ->setFinder($finder)
+    ->setIndent("\t")
+    ->setLineEnding("\n");
