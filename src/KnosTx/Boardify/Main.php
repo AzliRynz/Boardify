@@ -1,14 +1,12 @@
 <?php
-
-declare(strict_types=1);
-
 /*
  * This file is part of Boardify.
  *
  * @license MIT
- * @author KnosTx <nurazligaming@gmain.com>
+ * @author KnosTx <nurazligaming@gmail.com>
  * @link https://github.com/KnosTx
  */
+declare(strict_types=1);
 
 namespace KnosTx\Boardify;
 
