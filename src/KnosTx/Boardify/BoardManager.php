@@ -8,6 +8,8 @@
  * @link https://github.com/KnosTx
  */
 
+declare(strict_types=1);
+
 namespace KnosTx\Boardify;
 
 use pocketmine\event\Listener;
