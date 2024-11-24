@@ -46,19 +46,17 @@ class BoardifyCommand extends Command implements PluginOwned
 		$this->setPermission('boardify.command');
 
 		$this->owningPlugin = $plugin;
+		$this->plugin = $plugin;
 	}
 
 	public function execute(CommandSender $sender, string $commandLabel, array $args) : bool
 	{
 		if (!$sender->hasPermission('boardify.command')) {
 			$sender->sendMessage("§cYou don't have permission to use this command.");
-
 			return false;
 		}
 
 		if (isset($args[0]) && strtolower($args[0]) === 'reload') {
-			$this->plugin = $plugin;
-
 			$this->plugin->reloadConfig();
 			$sender->sendMessage('§aBoardify configuration reloaded!');
 		} else {
