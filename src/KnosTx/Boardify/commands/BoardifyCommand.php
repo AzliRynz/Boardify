@@ -48,9 +48,6 @@ class BoardifyCommand extends Command implements PluginOwned
 		$this->owningPlugin = $plugin;
 	}
 
-	/**
-	 * @return bool
-	 */
 	public function execute(CommandSender $sender, string $commandLabel, array $args) : bool
 	{
 		if (!$sender->hasPermission('boardify.command')) {
