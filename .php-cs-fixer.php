@@ -13,7 +13,6 @@ use PhpCsFixer\Finder;
 
 $finder = Finder::create()
     ->in(__DIR__) // Specify the directory to search for PHP files.
-    ->exclude(['vendor', 'node_modules', 'storage', 'bootstrap/cache']) // Exclude these directories.
     ->name('*.php') // Only consider PHP files.
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
@@ -51,7 +50,7 @@ This file is part of Boardify.
 @author KnosTx <nurazligaming@gmail.com>
 @link https://github.com/KnosTx
 EOT,
-            'location' => 'after_php_tag', // Place the header after `declare(strict_types=1)`.
+            'location' => 'after_open', // Place the header after `declare(strict_types=1)`.
             'comment_type' => 'comment', // Use standard block comment.
         ],
         'line_ending' => true, // Ensure consistent line endings.
