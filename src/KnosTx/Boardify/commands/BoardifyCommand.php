@@ -32,7 +32,7 @@ class BoardifyCommand extends Command implements PluginOwned
 {
 	use PluginOwnedTrait;
 
-private Main $plugin;
+	private Main $plugin;
 
 	/**
 	 * Boardify Command Construction
