@@ -21,7 +21,6 @@ return (new Config())
     ->setFinder($finder)
     ->setRiskyAllowed(true) // Allow risky rules if necessary.
     ->setRules([
-        '@PSR12' => true, // Apply PSR-12 standards.
         'array_syntax' => ['syntax' => 'short'], // Use short array syntax.
         'binary_operator_spaces' => [
             'default' => 'single_space',
