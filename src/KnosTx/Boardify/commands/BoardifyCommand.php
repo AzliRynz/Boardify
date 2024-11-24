@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of Boardify.
+ *
+ * @license MIT
+ * @author KnosTx <nurazligaming@gmail.com>
+ * @link https://github.com/KnosTx
+ */
+
 declare(strict_types=1);
 
 /*
