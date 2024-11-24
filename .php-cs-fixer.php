@@ -48,10 +48,10 @@ return (new Config())
 This file is part of Boardify.
 
 @license MIT
-@author KnosTx <nurazligaming@gmain.com>
+@author KnosTx <nurazligaming@gmail.com>
 @link https://github.com/KnosTx
 EOT,
-            'location' => 'after_declare_strict', // Place the header after `declare(strict_types=1)`.
+            'location' => 'after_php_tag', // Place the header after `declare(strict_types=1)`.
             'comment_type' => 'comment', // Use standard block comment.
         ],
         'line_ending' => true, // Ensure consistent line endings.
