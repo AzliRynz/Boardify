@@ -1,11 +1,20 @@
 <?php
 
 /*
- * This file is part of Boardify.
  *
+ *   ____                      _ _  __
+ *  |  _ \                    | (_)/ _|
+ *  | |_) | ___   __ _ _ __ __| |_| |_ _   _
+ *  |  _ < / _ \ / _` | '__/ _` | |  _| | | |
+ *  | |_) | (_) | (_| | | | (_| | | | | |_| |
+ *  |____/ \___/ \__,_|_|  \__,_|_|_|  \__, |
+ *                                      __/ |
+ *                                     |___/
  * @license MIT
- * @author KnosTx <nurazligaming@gmail.com>
- * @link https://github.com/KnosTx
+ * @author KnosTx
+ * @link https://github.com/KnosTx/Boardify
+ *
+ *
  */
 
 declare(strict_types=1);
@@ -16,32 +25,26 @@ use pocketmine\utils\Config;
 
 class ConfigManager
 {
-    /**
-     * @var Config
-     */
-    private Config $config;
+	private Config $config;
 
-    private Main $plugin;
+	private Main $plugin;
 
-    public function __construct(Main $plugin)
-    {
-        $this->plugin = $plugin;
-        $this->config = new Config($this->plugin->getDataFolder() . 'config.yml', Config::YAML);
-    }
+	public function __construct(Main $plugin)
+	{
+		$this->plugin = $plugin;
+		$this->config = new Config($this->plugin->getDataFolder() . 'config.yml', Config::YAML);
+	}
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function getDefaultBoard(): array
-    {
-        return $this->config->get('default-board', []);
-    }
+	/**
+	 * @return array<string, mixed>
+	 */
+	public function getDefaultBoard() : array
+	{
+		return $this->config->get('default-board', []);
+	}
 
-    /**
-     * @return int
-     */
-    public function getUpdateInterval(): int
-    {
-        return $this->config->get('update-interval', 20);
-    }
+	public function getUpdateInterval() : int
+	{
+		return $this->config->get('update-interval', 20);
+	}
 }

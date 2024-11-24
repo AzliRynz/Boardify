@@ -1,11 +1,20 @@
 <?php
 
 /*
- * This file is part of Boardify.
  *
+ *   ____                      _ _  __
+ *  |  _ \                    | (_)/ _|
+ *  | |_) | ___   __ _ _ __ __| |_| |_ _   _
+ *  |  _ < / _ \ / _` | '__/ _` | |  _| | | |
+ *  | |_) | (_) | (_| | | | (_| | | | | |_| |
+ *  |____/ \___/ \__,_|_|  \__,_|_|_|  \__, |
+ *                                      __/ |
+ *                                     |___/
  * @license MIT
- * @author KnosTx <nurazligaming@gmail.com>
- * @link https://github.com/KnosTx
+ * @author KnosTx
+ * @link https://github.com/KnosTx/Boardify
+ *
+ *
  */
 
 declare(strict_types=1);
@@ -17,49 +26,44 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\plugin\PluginOwned;
 use pocketmine\plugin\PluginOwnedTrait;
+use function strtolower;
 
 class BoardifyCommand extends Command implements PluginOwned
 {
-    use PluginOwnedTrait;
+	use PluginOwnedTrait;
 
-    /**
-     * Boardify Command Construction
-     *
-     * @param Main $plugin
-     */
-    public function __construct(Main $plugin)
-    {
-        parent::__construct('boardify');
-        $this->setDescription('Boardify Commands');
-        $this->setUsage('/boardify <reload>');
-        $this->setAliases(['board']);
-        $this->setPermission('boardify.command');
+	/**
+	 * Boardify Command Construction
+	 */
+	public function __construct(Main $plugin)
+	{
+		parent::__construct('boardify');
+		$this->setDescription('Boardify Commands');
+		$this->setUsage('/boardify <reload>');
+		$this->setAliases(['board']);
+		$this->setPermission('boardify.command');
 
-        $this->owningPlugin = $plugin;
-    }
+		$this->owningPlugin = $plugin;
+	}
 
-    /**
-     * @param CommandSender $sender
-     * @param string $commandLabel
-     * @param array $args
-     *
-     * @return bool|mixed
-     */
-    public function execute(CommandSender $sender, string $commandLabel, array $args): bool
-    {
-        if (!$sender->hasPermission('boardify.command')) {
-            $sender->sendMessage("§cYou don't have permission to use this command.");
+	/**
+	 * @return bool|mixed
+	 */
+	public function execute(CommandSender $sender, string $commandLabel, array $args) : bool
+	{
+		if (!$sender->hasPermission('boardify.command')) {
+			$sender->sendMessage("§cYou don't have permission to use this command.");
 
-            return false;
-        }
+			return false;
+		}
 
-        if (isset($args[0]) && strtolower($args[0]) === 'reload') {
-            $this->plugin->reloadConfig();
-            $sender->sendMessage('§aBoardify configuration reloaded!');
-        } else {
-            $sender->sendMessage('§cUsage: /boardify <reload>');
-        }
+		if (isset($args[0]) && strtolower($args[0]) === 'reload') {
+			$this->plugin->reloadConfig();
+			$sender->sendMessage('§aBoardify configuration reloaded!');
+		} else {
+			$sender->sendMessage('§cUsage: /boardify <reload>');
+		}
 
-        return true;
-    }
+		return true;
+	}
 }
