@@ -49,7 +49,7 @@ class BoardifyCommand extends Command implements PluginOwned
 	}
 
 	/**
-	 * @return mixed
+	 * @return bool
 	 */
 	public function execute(CommandSender $sender, string $commandLabel, array $args) : bool
 	{
@@ -60,6 +60,8 @@ class BoardifyCommand extends Command implements PluginOwned
 		}
 
 		if (isset($args[0]) && strtolower($args[0]) === 'reload') {
+			$this->plugin = $plugin;
+
 			$this->plugin->reloadConfig();
 			$sender->sendMessage('§aBoardify configuration reloaded!');
 		} else {
