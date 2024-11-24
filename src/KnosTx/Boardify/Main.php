@@ -1,12 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of Boardify.
+ *
+ * @license MIT
+ * @author KnosTx <nurazligaming@gmain.com>
+ * @link https://github.com/KnosTx
+ */
+
 namespace KnosTx\Boardify;
 
-use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
+use pocketmine\plugin\PluginBase;
 use pocketmine\scheduler\Task;
 
-class Main extends PluginBase implements Listener {
+class Main extends PluginBase implements Listener
+{
     /**
      * @var ConfigManager
      */
@@ -17,23 +28,26 @@ class Main extends PluginBase implements Listener {
      */
     private BoardManager $boardManager;
 
-    protected function onEnable(): void {
-        $this->saveResource("config.yml");
+    protected function onEnable(): void
+    {
+        $this->saveResource('config.yml');
 
         $this->configManager = new ConfigManager($this);
         $this->boardManager = new BoardManager($this);
 
-        $this->getScheduler()->scheduleRepeatingTask(new class($this) extends Task {
+        $this->getScheduler()->scheduleRepeatingTask(new class ($this) extends Task {
             /**
              * @var Main
              */
             private Main $plugin;
 
-            public function __construct(Main $plugin) {
+            public function __construct(Main $plugin)
+            {
                 $this->plugin = $plugin;
             }
 
-            public function onRun(): void {
+            public function onRun(): void
+            {
                 $this->plugin->getBoardManager()->updateBoards();
             }
         }, $this->configManager->getUpdateInterval());
@@ -42,14 +56,16 @@ class Main extends PluginBase implements Listener {
     /**
      * @return ConfigManager
      */
-    public function getConfigManager(): ConfigManager {
+    public function getConfigManager(): ConfigManager
+    {
         return $this->configManager;
     }
 
     /**
      * @return BoardManager
      */
-    public function getBoardManager(): BoardManager {
+    public function getBoardManager(): BoardManager
+    {
         return $this->boardManager;
     }
 }

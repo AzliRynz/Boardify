@@ -1,15 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * This file is part of Boardify.
+ *
+ * @license MIT
+ * @author KnosTx <nurazligaming@gmain.com>
+ * @link https://github.com/KnosTx
+ */
+
 namespace KnosTx\Boardify;
 
-use pocketmine\player\Player;
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\network\mcpe\protocol\SetDisplayObjectivePacket;
 use pocketmine\network\mcpe\protocol\SetScorePacket;
 use pocketmine\network\mcpe\protocol\types\ScorePacketEntry;
-use pocketmine\event\player\PlayerJoinEvent;
-use pocketmine\event\Listener;
+use pocketmine\player\Player;
 
-class BoardManager implements Listener {
+class BoardManager implements Listener
+{
     /**
      * @var array<string, bool>
      */
@@ -20,32 +31,35 @@ class BoardManager implements Listener {
      */
     private array $loginTimes = [];
 
-    public function __construct(private Main $plugin) {
+    public function __construct(private Main $plugin)
+    {
         $this->plugin->getServer()->getPluginManager()->registerEvents($this, $this->plugin);
     }
 
-    public function onPlayerJoin(PlayerJoinEvent $event): void {
+    public function onPlayerJoin(PlayerJoinEvent $event): void
+    {
         $player = $event->getPlayer();
         $this->createBoard($player);
     }
 
-    public function createBoard(Player $player): void {
+    public function createBoard(Player $player): void
+    {
         $config = $this->plugin->getConfigManager()->getDefaultBoard();
 
         $objectivePacket = new SetDisplayObjectivePacket();
-        $objectivePacket->displaySlot = "sidebar";
-        $objectivePacket->objectiveName = "Boardify";
-        $objectivePacket->displayName = $config["title"] ?? "Boardify";
-        $objectivePacket->criteriaName = "dummy";
+        $objectivePacket->displaySlot = 'sidebar';
+        $objectivePacket->objectiveName = 'Boardify';
+        $objectivePacket->displayName = $config['title'] ?? 'Boardify';
+        $objectivePacket->criteriaName = 'dummy';
         $objectivePacket->sortOrder = 0;
         $player->getNetworkSession()->sendDataPacket($objectivePacket);
 
-        $lines = $config["lines"] ?? [];
+        $lines = $config['lines'] ?? [];
         $entries = [];
         $lineCount = count($lines);
         foreach ($lines as $score => $line) {
             $entry = new ScorePacketEntry();
-            $entry->objectiveName = "Boardify";
+            $entry->objectiveName = 'Boardify';
             $entry->type = ScorePacketEntry::TYPE_FAKE_PLAYER;
             $entry->customName = $this->parsePlaceholders($player, $line);
             $entry->score = $lineCount - $score;
@@ -62,19 +76,21 @@ class BoardManager implements Listener {
         $this->loginTimes[$player->getName()] = time();
     }
 
-    public function removeBoard(Player $player): void {
+    public function removeBoard(Player $player): void
+    {
         unset($this->boards[$player->getName()]);
         $objectivePacket = new SetDisplayObjectivePacket();
-        $objectivePacket->displaySlot = "sidebar";
-        $objectivePacket->objectiveName = "Boardify";
-        $objectivePacket->displayName = "";
-        $objectivePacket->criteriaName = "dummy";
+        $objectivePacket->displaySlot = 'sidebar';
+        $objectivePacket->objectiveName = 'Boardify';
+        $objectivePacket->displayName = '';
+        $objectivePacket->criteriaName = 'dummy';
         $objectivePacket->sortOrder = 0;
         $player->getNetworkSession()->sendDataPacket($objectivePacket);
         unset($this->loginTimes[$player->getName()]);
     }
 
-    public function updateBoards(): void {
+    public function updateBoards(): void
+    {
         foreach ($this->plugin->getServer()->getOnlinePlayers() as $player) {
             if (isset($this->boards[$player->getName()])) {
                 $this->createBoard($player);
@@ -82,24 +98,25 @@ class BoardManager implements Listener {
         }
     }
 
-    private function parsePlaceholders(Player $player, string $line): string {
+    private function parsePlaceholders(Player $player, string $line): string
+    {
         $playtime = 0;
         if (isset($this->loginTimes[$player->getName()])) {
-            $playtime = (int)((time() - $this->loginTimes[$player->getName()]) / 60);
+            $playtime = (int) ((time() - $this->loginTimes[$player->getName()]) / 60);
         }
 
         return str_replace(
             [
-                "{player}",
-                "{online}",
-                "{ping}",
-                "{world}",
-                "{x}",
-                "{y}",
-                "{z}",
-                "{health}",
-                "{max_health}",
-                "{playtime}"
+                '{player}',
+                '{online}',
+                '{ping}',
+                '{world}',
+                '{x}',
+                '{y}',
+                '{z}',
+                '{health}',
+                '{max_health}',
+                '{playtime}',
             ],
             [
                 $player->getName(),
@@ -111,7 +128,7 @@ class BoardManager implements Listener {
                 round($player->getPosition()->getZ(), 1),
                 round($player->getHealth(), 1),
                 $player->getMaxHealth(),
-                $playtime
+                $playtime,
             ],
             $line
         );
