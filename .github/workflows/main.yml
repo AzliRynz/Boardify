@@ -1,0 +1,40 @@
+name: PHP-CS-Fixer
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout kode sumber dari repositori
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Setup PHP
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'  # Tentukan versi PHP yang ingin Anda gunakan
+
+    # Install PHP-CS-Fixer
+    - name: Install PHP-CS-Fixer
+      run: |
+        wget https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/v3.64.0/php-cs-fixer.phar -O /usr/local/bin/php-cs-fixer
+        chmod +x /usr/local/bin/php-cs-fixer
+
+    # Jalankan PHP-CS-Fixer untuk memperbaiki kode
+    - name: Run PHP-CS-Fixer and Fix Code
+      run: |
+        php-cs-fixer fix --allow-risky=yes --quiet  # Perbaiki kode tanpa output yang terlalu banyak
+    
+    # Commit dan push perubahan jika ada
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'github-actions@github.com'
+        git add .
+        git commit -m "Apply PHP-CS-Fixer changes"
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:${{ github.ref }}
