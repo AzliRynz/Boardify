@@ -1,5 +1,22 @@
 <?php
 
+/*
+ *
+ *   ____                      _ _  __
+ *  |  _ \                    | (_)/ _|
+ *  | |_) | ___   __ _ _ __ __| |_| |_ _   _
+ *  |  _ < / _ \ / _` | '__/ _` | |  _| | | |
+ *  | |_) | (_) | (_| | | | (_| | | | | |_| |
+ *  |____/ \___/ \__,_|_|  \__,_|_|_|  \__, |
+ *                                      __/ |
+ *                                     |___/
+ * @license MIT
+ * @author KnosTx
+ * @link https://github.com/KnosTx/Boardify
+ *
+ *
+ */
+
 declare(strict_types=1);
 
 namespace KnosTx\Boardify;
@@ -12,7 +29,7 @@ class Main extends PluginBase
 	private ConfigManager $configManager;
 	private BoardManager $boardManager;
 
-	protected function onEnable(): void
+	protected function onEnable() : void
 	{
 		$this->saveResource('config.yml');
 
@@ -27,19 +44,19 @@ class Main extends PluginBase
 				$this->boardManager = $boardManager;
 			}
 
-			public function onRun(): void
+			public function onRun() : void
 			{
 				$this->boardManager->updateBoards();
 			}
-		}, (int)($this->configManager->getUpdateInterval() * 20));
+		}, (int) ($this->configManager->getUpdateInterval() * 20));
 	}
 
-	public function getConfigManager(): ConfigManager
+	public function getConfigManager() : ConfigManager
 	{
 		return $this->configManager;
 	}
 
-	public function getBoardManager(): BoardManager
+	public function getBoardManager() : BoardManager
 	{
 		return $this->boardManager;
 	}
