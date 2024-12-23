@@ -1,22 +1,5 @@
 <?php
 
-/*
- *
- *   ____                      _ _  __
- *  |  _ \                    | (_)/ _|
- *  | |_) | ___   __ _ _ __ __| |_| |_ _   _
- *  |  _ < / _ \ / _` | '__/ _` | |  _| | | |
- *  | |_) | (_) | (_| | | | (_| | | | | |_| |
- *  |____/ \___/ \__,_|_|  \__,_|_|_|  \__, |
- *                                      __/ |
- *                                     |___/
- * @license MIT
- * @author KnosTx
- * @link https://github.com/KnosTx/Boardify
- *
- *
- */
-
 declare(strict_types=1);
 
 namespace KnosTx\Boardify;
@@ -44,19 +27,18 @@ class BoardManager implements Listener
 	public function __construct(private Main $plugin)
 	{
 		$this->plugin->getServer()->getPluginManager()->registerEvents($this, $this->plugin);
-
-		$this->plugin->getScheduler()->scheduleRepeatingTask(new ClosureTask(function () : void {
+		$this->plugin->getScheduler()->scheduleRepeatingTask(new ClosureTask(function (): void {
 			$this->updateBoards();
 		}), 20);
 	}
 
-	public function onPlayerJoin(PlayerJoinEvent $event) : void
+	public function onPlayerJoin(PlayerJoinEvent $event): void
 	{
 		$player = $event->getPlayer();
 		$this->createBoard($player);
 	}
 
-	public function createBoard(Player $player) : void
+	public function createBoard(Player $player): void
 	{
 		$config = $this->plugin->getConfigManager()->getDefaultBoard();
 
@@ -73,7 +55,7 @@ class BoardManager implements Listener
 		$this->loginTimes[$player->getName()] = time();
 	}
 
-	public function removeBoard(Player $player) : void
+	public function removeBoard(Player $player): void
 	{
 		unset($this->boards[$player->getName()]);
 		$objectivePacket = new SetDisplayObjectivePacket();
@@ -86,7 +68,7 @@ class BoardManager implements Listener
 		unset($this->loginTimes[$player->getName()]);
 	}
 
-	public function updateBoards() : void
+	public function updateBoards(): void
 	{
 		foreach ($this->plugin->getServer()->getOnlinePlayers() as $player) {
 			if (isset($this->boards[$player->getName()])) {
@@ -95,7 +77,7 @@ class BoardManager implements Listener
 		}
 	}
 
-	private function updatePlayerBoard(Player $player, array $lines) : void
+	private function updatePlayerBoard(Player $player, array $lines): void
 	{
 		$entries = [];
 		$lineCount = count($lines);
@@ -115,11 +97,11 @@ class BoardManager implements Listener
 		$player->getNetworkSession()->sendDataPacket($scorePacket);
 	}
 
-	private function parsePlaceholders(Player $player, string $line) : string
+	private function parsePlaceholders(Player $player, string $line): string
 	{
 		$playtime = 0;
 		if (isset($this->loginTimes[$player->getName()])) {
-			$playtime = (int) ((time() - $this->loginTimes[$player->getName()]) / 60);
+			$playtime = (int)((time() - $this->loginTimes[$player->getName()]) / 60);
 		}
 
 		return str_replace(
