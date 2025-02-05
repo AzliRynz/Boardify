@@ -21,7 +21,8 @@ declare(strict_types=1);
 
 namespace KnosTx\Boardify;
 
-use KnosTx\Boardify\Task\BoardUpdateTask;
+use KnosTx\Boardify\task\BoardUpdateTask;
+use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginBase;
 
 class Main extends PluginBase
