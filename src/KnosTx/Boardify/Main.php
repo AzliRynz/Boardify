@@ -21,10 +21,8 @@ declare(strict_types=1);
 
 namespace KnosTx\Boardify;
 
-use pocketmine\plugin\PluginBase;
-use pocketmine\scheduler\Task;
-use pocketmine\scheduler\ClosureTask;
 use KnosTx\Boardify\Task\BoardUpdateTask;
+use pocketmine\plugin\PluginBase;
 
 class Main extends PluginBase
 {
@@ -38,9 +36,8 @@ class Main extends PluginBase
 		$this->configManager = new ConfigManager($this);
 		$this->boardManager = new BoardManager($this);
 
-		
-    $this->plugin->getServer()->getPluginManager()->registerEvents($this, $this->plugin);
-    $this->plugin->getScheduler()->scheduleRepeatingTask(new BoardUpdateTask($this), 0.1);
+	$this->plugin->getServer()->getPluginManager()->registerEvents($this, $this->plugin);
+	$this->plugin->getScheduler()->scheduleRepeatingTask(new BoardUpdateTask($this), 0.1);
 	}
 
 	public function getConfigManager() : ConfigManager
