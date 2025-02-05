@@ -22,9 +22,10 @@ declare(strict_types=1);
 namespace KnosTx\Boardify;
 
 use KnosTx\Boardify\task\BoardUpdateTask;
+use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
 
-class Main extends PluginBase
+class Main extends PluginBase implements Listener
 {
 	private ConfigManager $configManager;
 	private BoardManager $boardManager;
@@ -35,7 +36,7 @@ class Main extends PluginBase
 
 		$this->configManager = new ConfigManager($this);
 		$this->boardManager = new BoardManager($this);
-		$this->getServer()->getPluginManager()->registerEvents($this, $this->plugin);
+		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->getScheduler()->scheduleRepeatingTask(new BoardUpdateTask($this), 0.1);
 	}
 
