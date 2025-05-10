@@ -37,7 +37,7 @@ class Main extends PluginBase implements Listener
 		$this->configManager = new ConfigManager($this);
 		$this->boardManager = new BoardManager($this);
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
-		$this->getScheduler()->scheduleRepeatingTask(new BoardUpdateTask($this > boardManager), 0.1);
+		$this->getScheduler()->scheduleRepeatingTask(new BoardUpdateTask($this->boardManager), 0.1);
 	}
 
 	public function getConfigManager() : ConfigManager
